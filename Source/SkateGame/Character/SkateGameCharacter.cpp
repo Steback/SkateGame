@@ -4,6 +4,8 @@
 #include "SkateGameCharacter.h"
 
 #include "EnhancedInputComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/MovementComponent.h"
 
 
 // Sets default values
@@ -45,6 +47,8 @@ void ASkateGameCharacter::Accelerate(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	const float ImpulseValue = Value.Get<float>();
+
+	AddMovementInput(GetActorForwardVector(), ImpulseValue);
 	
 	if (IsValid(GEngine))
 	{
