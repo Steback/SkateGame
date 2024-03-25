@@ -49,21 +49,13 @@ void ASkateGameCharacter::Accelerate(const FInputActionValue& Value)
 	const float ImpulseValue = Value.Get<float>();
 
 	AddMovementInput(GetActorForwardVector(), ImpulseValue);
-	
-	if (IsValid(GEngine))
-	{
-		GEngine->AddOnScreenDebugMessage(90, 1.0f, FColor::Cyan, FString::Printf(TEXT("Impulse Value: %f"), ImpulseValue));
-	}
 }
 
 void ASkateGameCharacter::Rotate(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	const float RotateDirection = Value.Get<float>();
-	
-	if (IsValid(GEngine))
-	{
-		GEngine->AddOnScreenDebugMessage(91, 1.0f, FColor::Cyan, FString::Printf(TEXT("Rotate Direction: %f"), RotateDirection));
-	}
+
+	AddControllerYawInput(RotateDirection);
 }
 
