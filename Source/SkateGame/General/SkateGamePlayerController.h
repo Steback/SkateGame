@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "SkateGamePlayerController.generated.h"
 
+class ASkateGameCamera;
 class UInputMappingContext;
 
 /**
@@ -22,4 +23,10 @@ public:
 	/** Input Mapping Context to be used for player input */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputMappingContext* InputMappingContext;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Gameplay)
+	TSubclassOf<ASkateGameCamera> CameraTemplate;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Gameplay)
+	TObjectPtr<ASkateGameCamera> CameraActor;
 };

@@ -4,6 +4,7 @@
 #include "General/SkateGamePlayerController.h"
 
 #include "EnhancedInputSubsystems.h"
+#include "Actor/SkateGameCamera.h"
 
 
 void ASkateGamePlayerController::BeginPlay()
@@ -15,5 +16,12 @@ void ASkateGamePlayerController::BeginPlay()
 	{
 		// add the mapping context so we get controls
 		Subsystem->AddMappingContext(InputMappingContext, 0);
+	}
+
+	CameraActor = GetWorld()->SpawnActor<ASkateGameCamera>(CameraTemplate);
+	if (IsValid(CameraActor))
+	{
+		CameraActor->SetTarget(GetPawn());
+		SetViewTargetWithBlend(CameraActor);
 	}
 }
