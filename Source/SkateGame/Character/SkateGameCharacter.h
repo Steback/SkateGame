@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "SkateGameCharacter.generated.h"
 
+class UInputAction;
+
 UCLASS()
 class SKATEGAME_API ASkateGameCharacter : public ACharacter
 {
@@ -25,4 +27,20 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	/** Called for acceleration input */
+	UFUNCTION()
+	void Accelerate(const FInputActionValue& Value);
+	
+	/** Called for acceleration input */
+	UFUNCTION()
+	void Rotate(const FInputActionValue& Value);
+	
+	/** Accelerate Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* AccelerateAction;
+	
+	/** Rotate Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* RotateAction;
 };
