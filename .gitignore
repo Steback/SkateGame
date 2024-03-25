@@ -36,6 +36,8 @@
 *.xcodeproj
 *.xcworkspace
 *.sln
+Makefile
+SkateGame.code-workspace
 *.suo
 *.opensdf
 *.sdf
