@@ -2,7 +2,7 @@
 This is the Skateboarding Simulator Game from Blue Gravity's Unreal Programmer Task.
 
 ## Requirements
-* [ ] Movement Functionality
+* [X] Movement Functionality
 * [ ] Small Designed Level with Jumping obstacles
 * [ ] Jumping- Utilize any Jump animation from Mixamo using Animation Blueprint to make it appear as if it was a regular Jump with skate, using the Blend Modes in Animation Blueprint
 * [ ] Pushing Functionality - Speed up
