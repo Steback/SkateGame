@@ -9,6 +9,9 @@ public class SkateGame : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		
+		// Project private include
+		PrivateIncludePaths.Add("SkateGame");
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
