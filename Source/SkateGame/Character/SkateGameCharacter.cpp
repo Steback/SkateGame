@@ -106,8 +106,11 @@ void ASkateGameCharacter::Rotate(const FInputActionValue& Value)
 
 void ASkateGameCharacter::Jump()
 {
-	Super::Jump();
-	bIsJumping = true;
+	if (!bIsJumping)
+	{
+		Super::Jump();
+		bIsJumping = true;
+	}
 }
 
 void ASkateGameCharacter::StopJumping()
