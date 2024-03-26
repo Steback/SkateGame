@@ -114,9 +114,13 @@ void ASkateGameCharacter::StopAccelerate()
 
 void ASkateGameCharacter::Slowdown()
 {
-	if (IsValid(GEngine))
+	if (!bIsMoving && CurrentSpeed > BaseSpeed)
 	{
-		GEngine->AddOnScreenDebugMessage(80, 1.0f, FColor::Cyan, TEXT("Slowdown"));
+		if (UCharacterMovementComponent* MovementComponent = GetCharacterMovement())
+		{
+			CurrentSpeed = FMath::Max(CurrentSpeed - (BaseSpeed * GetWorld()->GetDeltaSeconds()), BaseSpeed);
+			MovementComponent->MaxWalkSpeed = CurrentSpeed;
+		}
 	}
 }
 
