@@ -49,6 +49,9 @@ void ASkateGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		
 		// Jump
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASkateGameCharacter::Jump);
+		
+		// Impulse
+		EnhancedInputComponent->BindAction(ImpulseAction, ETriggerEvent::Triggered, this, &ASkateGameCharacter::Impulse);
 	}
 }
 
@@ -77,5 +80,13 @@ void ASkateGameCharacter::Jump()
 void ASkateGameCharacter::StopJumping()
 {
 	Super::StopJumping();
+}
+
+void ASkateGameCharacter::Impulse(const FInputActionValue& Value)
+{
+	if (IsValid(GEngine))
+	{
+		GEngine->AddOnScreenDebugMessage(90, 1.0f, FColor::Cyan, TEXT("Impulse!"));
+	}
 }
 

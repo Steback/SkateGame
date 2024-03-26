@@ -42,6 +42,10 @@ public:
 	/** Called for jump input */
 	virtual void StopJumping() override;
 
+	/** Called for jump input */
+	UFUNCTION()
+	void Impulse(const FInputActionValue& Value);
+
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
 	bool bIsJumping = false;
 	
@@ -56,4 +60,8 @@ public:
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* JumpAction;
+	
+	/** Jump Impulse Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* ImpulseAction;
 };
