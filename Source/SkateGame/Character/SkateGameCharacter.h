@@ -34,6 +34,10 @@ public:
 	
 	/** Called for acceleration input */
 	UFUNCTION()
+	void StopAccelerate();
+	
+	/** Called for acceleration input */
+	UFUNCTION()
 	void Rotate(const FInputActionValue& Value);
 
 	/** Called for jump input */
@@ -42,8 +46,33 @@ public:
 	/** Called for jump input */
 	virtual void StopJumping() override;
 
+	/** Called for jump input */
+	UFUNCTION()
+	void Impulse(const FInputActionValue& Value);
+
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
 	bool bIsJumping = false;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	bool bIsMoving = false;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	bool bCanImpulse = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	float ImpulseForce = 100.0f;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	float BaseSpeed = 0.0f;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	float CurrentSpeed = 0.0f;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	float ImpulseCooldown = 2.0f;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	float ImpulseCooldownTimer = 0.0f;
 	
 	/** Accelerate Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
@@ -56,4 +85,8 @@ public:
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* JumpAction;
+	
+	/** Jump Impulse Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* ImpulseAction;
 };
