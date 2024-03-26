@@ -64,7 +64,6 @@ void ASkateGameCharacter::Tick(float DeltaTime)
 		GEngine->AddOnScreenDebugMessage(92, 1.0f, FColor::Cyan, FString::Printf(TEXT("Impulse Cooldown: %f"), ImpulseCooldownTimer));
 	}
 #endif
-	
 }
 
 // Called to bind functionality to input
