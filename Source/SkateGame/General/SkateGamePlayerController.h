@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "SkateGamePlayerController.generated.h"
 
+class UUserWidget;
 class ASkateGameCamera;
 class UInputMappingContext;
 
@@ -29,4 +30,10 @@ public:
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Gameplay)
 	TObjectPtr<ASkateGameCamera> CameraActor;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=UI)
+	TArray<TObjectPtr<UUserWidget>> Widgets;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=UI)
+	TArray<TSubclassOf<UUserWidget>> WidgetsToSpawn;
 };

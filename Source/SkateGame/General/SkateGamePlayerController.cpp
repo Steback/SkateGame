@@ -5,6 +5,7 @@
 
 #include "EnhancedInputSubsystems.h"
 #include "Actor/SkateGameCamera.h"
+#include "Blueprint/UserWidget.h"
 
 
 void ASkateGamePlayerController::BeginPlay()
@@ -23,5 +24,16 @@ void ASkateGamePlayerController::BeginPlay()
 	{
 		CameraActor->SetTarget(GetPawn());
 		SetViewTargetWithBlend(CameraActor);
+	}
+	
+	for (const auto& WidgetClass : WidgetsToSpawn)
+	{
+		if (UUserWidget* Widget = CreateWidget<UUserWidget>(this, WidgetClass))
+		{
+			Widget->AddToViewport();
+			Widget->SetVisibility(ESlateVisibility::Visible);
+
+			Widgets.Add(Widget);
+		}
 	}
 }
