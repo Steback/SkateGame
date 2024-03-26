@@ -34,4 +34,8 @@ void ASkateGameState::RegisterObstacle(USkateGameScoreVolume* Obstacle)
 void ASkateGameState::OnGivePoints(int PointsToGive)
 {
 	Score += PointsToGive;
+	if (OnUpdateScore.IsBound())
+	{
+		OnUpdateScore.Broadcast(Score);
+	}
 }

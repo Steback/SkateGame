@@ -15,6 +15,8 @@ class SKATEGAME_API ASkateGameState : public AGameStateBase
 {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateScoreSignature, int, CurrentScore);
+
 public:
 	ASkateGameState();
 	
@@ -31,4 +33,7 @@ public:
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay)
 	TArray<TObjectPtr<USkateGameScoreVolume>> Obstacles;
+
+	UPROPERTY(BlueprintCallable)
+	FOnUpdateScoreSignature OnUpdateScore;
 };
