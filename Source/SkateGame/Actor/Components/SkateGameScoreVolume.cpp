@@ -3,6 +3,9 @@
 
 #include "SkateGameScoreVolume.h"
 
+#include "Character/SkateGameCharacter.h"
+#include "General/SkateGameState.h"
+
 
 // Sets default values for this component's properties
 USkateGameScoreVolume::USkateGameScoreVolume()
@@ -20,17 +23,40 @@ void USkateGameScoreVolume::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	OnComponentBeginOverlap.AddDynamic(this, &USkateGameScoreVolume::OnBeginOverlap);
+	OnComponentEndOverlap.AddDynamic(this, &USkateGameScoreVolume::OnEndOverlap);
+
+	if (ASkateGameState* GameState = Cast<ASkateGameState>(GetWorld()->GetGameState()))
+	{
+		GameState->RegisterObstacle(this);
+	}
 }
 
-
-// Called every frame
-void USkateGameScoreVolume::TickComponent(float DeltaTime, ELevelTick TickType,
-                                          FActorComponentTickFunction* ThisTickFunction)
+void USkateGameScoreVolume::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	if (bIsPawnInside)
+	{
+		if (OnGivePoints.IsBound())
+		{
+			OnGivePoints.Broadcast(PointsToGive);
+		}
+	}
 }
 
+void USkateGameScoreVolume::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (ASkateGameCharacter* Character = Cast<ASkateGameCharacter>(OtherActor))
+	{
+		bIsPawnInside = true;
+	}
+}
+
+void USkateGameScoreVolume::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (ASkateGameCharacter* Character = Cast<ASkateGameCharacter>(OtherActor))
+	{
+		bIsPawnInside = false;
+	}
+}
