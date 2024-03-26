@@ -87,6 +87,9 @@ void ASkateGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		
 		// Impulse
 		EnhancedInputComponent->BindAction(ImpulseAction, ETriggerEvent::Started, this, &ASkateGameCharacter::Impulse);
+		
+		// Slowdown
+		EnhancedInputComponent->BindAction(SlowdownAction, ETriggerEvent::Triggered, this, &ASkateGameCharacter::Slowdown);
 	}
 }
 
@@ -107,6 +110,18 @@ void ASkateGameCharacter::Accelerate(const FInputActionValue& Value)
 void ASkateGameCharacter::StopAccelerate()
 {
 	bIsMoving = false;
+}
+
+void ASkateGameCharacter::Slowdown()
+{
+	if (!bIsMoving && CurrentSpeed > BaseSpeed)
+	{
+		if (UCharacterMovementComponent* MovementComponent = GetCharacterMovement())
+		{
+			CurrentSpeed = FMath::Max(CurrentSpeed - (BaseSpeed * GetWorld()->GetDeltaSeconds()), BaseSpeed);
+			MovementComponent->MaxWalkSpeed = CurrentSpeed;
+		}
+	}
 }
 
 void ASkateGameCharacter::Rotate(const FInputActionValue& Value)

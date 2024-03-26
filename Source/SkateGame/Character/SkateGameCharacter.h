@@ -36,6 +36,10 @@ public:
 	UFUNCTION()
 	void StopAccelerate();
 	
+	/** Called for slowdown input */
+	UFUNCTION()
+	void Slowdown();
+	
 	/** Called for acceleration input */
 	UFUNCTION()
 	void Rotate(const FInputActionValue& Value);
@@ -86,7 +90,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* JumpAction;
 	
-	/** Jump Impulse Action */
+	/** Impulse Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* ImpulseAction;
+	
+	/** SlowDown Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* SlowdownAction;
 };
