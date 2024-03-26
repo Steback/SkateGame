@@ -34,6 +34,10 @@ public:
 	
 	/** Called for acceleration input */
 	UFUNCTION()
+	void StopAccelerate();
+	
+	/** Called for acceleration input */
+	UFUNCTION()
 	void Rotate(const FInputActionValue& Value);
 
 	/** Called for jump input */
@@ -48,6 +52,18 @@ public:
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
 	bool bIsJumping = false;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	bool bIsMoving = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	float ImpulseForce = 100.0f;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	float BaseSpeed = 0.0f;
+	
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	float CurrentSpeed = 0.0f;
 	
 	/** Accelerate Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
