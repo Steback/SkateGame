@@ -35,6 +35,15 @@ public:
 	/** Called for acceleration input */
 	UFUNCTION()
 	void Rotate(const FInputActionValue& Value);
+
+	/** Called for jump input */
+	virtual void Jump() override;
+
+	/** Called for jump input */
+	virtual void StopJumping() override;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category=Gameplay, meta=(AllowPrivateAccess = "true"))
+	bool bIsJumping = false;
 	
 	/** Accelerate Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
@@ -43,4 +52,8 @@ public:
 	/** Rotate Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* RotateAction;
+	
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* JumpAction;
 };

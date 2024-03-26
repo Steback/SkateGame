@@ -25,6 +25,12 @@ void ASkateGameCharacter::BeginPlay()
 void ASkateGameCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	const UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
+	if (bIsJumping && IsValid(MovementComponent))
+	{
+		bIsJumping = MovementComponent->IsFalling();
+	}
 }
 
 // Called to bind functionality to input
@@ -40,6 +46,9 @@ void ASkateGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 
 		// Rotate
 		EnhancedInputComponent->BindAction(RotateAction, ETriggerEvent::Triggered, this, &ASkateGameCharacter::Rotate);
+		
+		// Jump
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASkateGameCharacter::Jump);
 	}
 }
 
@@ -57,5 +66,16 @@ void ASkateGameCharacter::Rotate(const FInputActionValue& Value)
 	const float RotateDirection = Value.Get<float>();
 
 	AddControllerYawInput(RotateDirection);
+}
+
+void ASkateGameCharacter::Jump()
+{
+	Super::Jump();
+	bIsJumping = true;
+}
+
+void ASkateGameCharacter::StopJumping()
+{
+	Super::StopJumping();
 }
 
