@@ -44,11 +44,24 @@ void ASkateGameCharacter::Tick(float DeltaTime)
 		AddMovementInput(GetActorForwardVector(), CurrentSpeed / BaseSpeed);
 	}
 
+	if (!bCanImpulse)
+	{
+		if (ImpulseCooldownTimer > 0.0f)
+		{
+			ImpulseCooldownTimer = FMath::Max(ImpulseCooldownTimer - DeltaTime, 0.0f);
+		}
+		else
+		{
+			bCanImpulse = true;
+		}
+	}
+
 #if defined(UE_EDITOR) || defined(UE_BUILD_DEVELOPMENT)
 	if (IsValid(GEngine))
 	{
 		GEngine->AddOnScreenDebugMessage(90, 1.0f, FColor::Cyan, FString::Printf(TEXT("Max speed: %f"), MovementComponent->MaxWalkSpeed));
 		GEngine->AddOnScreenDebugMessage(91, 1.0f, FColor::Cyan, FString::Printf(TEXT("Valocity: %s"), *MovementComponent->Velocity.ToString()));
+		GEngine->AddOnScreenDebugMessage(92, 1.0f, FColor::Cyan, FString::Printf(TEXT("Impulse Cooldown: %f"), ImpulseCooldownTimer));
 	}
 #endif
 	
@@ -120,12 +133,15 @@ void ASkateGameCharacter::StopJumping()
 
 void ASkateGameCharacter::Impulse(const FInputActionValue& Value)
 {
-	if (bIsMoving)
+	if (bIsMoving && bCanImpulse)
 	{
 		if (UCharacterMovementComponent* MovementComponent = GetCharacterMovement())
 		{
 			MovementComponent->MaxWalkSpeed += ImpulseForce;
 			CurrentSpeed = MovementComponent->MaxWalkSpeed;
+			
+			bCanImpulse = false;
+			ImpulseCooldownTimer = ImpulseCooldown;
 		}
 	}
 }
