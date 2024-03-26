@@ -87,6 +87,9 @@ void ASkateGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		
 		// Impulse
 		EnhancedInputComponent->BindAction(ImpulseAction, ETriggerEvent::Started, this, &ASkateGameCharacter::Impulse);
+		
+		// Slowdown
+		EnhancedInputComponent->BindAction(SlowdownAction, ETriggerEvent::Triggered, this, &ASkateGameCharacter::Slowdown);
 	}
 }
 
@@ -107,6 +110,14 @@ void ASkateGameCharacter::Accelerate(const FInputActionValue& Value)
 void ASkateGameCharacter::StopAccelerate()
 {
 	bIsMoving = false;
+}
+
+void ASkateGameCharacter::Slowdown()
+{
+	if (IsValid(GEngine))
+	{
+		GEngine->AddOnScreenDebugMessage(80, 1.0f, FColor::Cyan, TEXT("Slowdown"));
+	}
 }
 
 void ASkateGameCharacter::Rotate(const FInputActionValue& Value)
