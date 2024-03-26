@@ -7,7 +7,7 @@ This is the Skateboarding Simulator Game from Blue Gravity's Unreal Programmer T
 * [X] Jumping- Utilize any Jump animation from Mixamo using Animation Blueprint to make it appear as if it was a regular Jump with skate, using the Blend Modes in Animation Blueprint [[#4](https://github.com/Steback/SkateGame/pull/4)]
 * [X] Pushing Functionality - Speed up [[#5](https://github.com/Steback/SkateGame/pull/5)]
 * [X] Slow Down Functionality [[#6](https://github.com/Steback/SkateGame/pull/6)]
-* [ ] Points system - for every obstacle jumped over 
+* [X] Points system - for every obstacle jumped over [[#7](https://github.com/Steback/SkateGame/pull/7)]
 * [ ] Design a suitable UI for the prototype
 
 ## Dependencies
